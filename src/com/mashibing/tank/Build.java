@@ -3,11 +3,11 @@ package com.mashibing.tank;
 import java.awt.*;
 
 public class Build {
-    private Integer x=10,y=10;
-    private Dir dir;
     private static final Integer speed=5;
     private static final Integer width=20, hight=20;
-    private boolean live;
+    private Integer x=10,y=10;
+    private Dir dir;
+    private boolean live = true;
     private TankFrame tf = null;
 
     public Build(Integer x, Integer y, Dir dir,TankFrame tf) {
@@ -35,7 +35,6 @@ public class Build {
 
 
     public void paint(Graphics g) {
-        System.out.println("子弹开始跑");
         if (!live){
             tf.buildList.remove(this);
         }
@@ -50,19 +49,16 @@ public class Build {
     private void move() {
         switch (dir){
             case LEFT:
-                System.out.println("左键");
-                x -=speed;
+                x -= speed;
                 break;
             case RIGHT:
-                System.out.println("右键");
-                x +=speed;
+                x += speed;
                 break;
             case UP:
-                System.out.println("上键");
-                y -=speed;
+                y -= speed;
                 break;
             case DOWN:
-                y +=speed;
+                y += speed;
                 break;
             default:
                 break;

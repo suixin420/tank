@@ -13,7 +13,6 @@ public class TankFrame extends Frame {
     List<Build> buildList = new ArrayList<Build>();
     static final Integer frameWidth=800, frameHegith=800;
 
-
     public TankFrame(){
         setSize(frameWidth,frameHegith);
         setResizable(false);

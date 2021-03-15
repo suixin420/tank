@@ -5,8 +5,7 @@ import java.awt.event.KeyEvent;
 
 public class Tank {
     private Integer x=20,y=20;
-     static final Integer width=50;
-     static final Integer hight=50;
+    private static final Integer width=50, hight=50;
     private Dir dir;
      static final Integer speed=5;
     private boolean moving = false;
@@ -66,6 +65,11 @@ public class Tank {
             default:
                 break;
         }
+        if (x <0  )x = 0;
+        if (y <0  )y = 0;
+        if (x > TankFrame.frameWidth)x = TankFrame.frameWidth;
+        if (y > TankFrame.frameHegith)y = TankFrame.frameHegith;
+
     }
 
 
