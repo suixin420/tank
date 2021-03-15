@@ -36,12 +36,13 @@ public class Tank {
 
     public void paint(Graphics g) {
         System.out.println("坦克开始跑");
-        Color color = g.getColor();
-        move();
-        g.setColor(Color.YELLOW);
-        g.fillRect(x, y, width, hight);
-        g.setColor(color);
 
+//        Color color = g.getColor();
+//        g.setColor(Color.YELLOW);
+//        g.fillRect(x, y, width, hight);
+//        g.setColor(color);
+        g.drawImage(ResourceMgr.tankL,x, y, width, hight,null);
+        move();
     }
 
     private void move() {
