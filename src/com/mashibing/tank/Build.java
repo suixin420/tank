@@ -3,7 +3,7 @@ package com.mashibing.tank;
 import java.awt.*;
 
 public class Build {
-    private static final Integer speed=5;
+    private static final Integer speed=10;
     private static final Integer width=20, hight=20;
     private Integer x=10,y=10;
     private Dir dir;
@@ -40,7 +40,7 @@ public class Build {
         }
 
         Color color = g.getColor();
-        g.setColor(Color.black);
+        g.setColor(Color.red);
         g.fillOval(x, y, width, hight);
         g.setColor(color);
         move();
@@ -63,7 +63,7 @@ public class Build {
             default:
                 break;
         }
-        if (x <0 || y <0 || x > TankFrame.frameWidth || y > TankFrame.frameHegith) live = false;
+        if (x <0 || y <0 || x > TankFrame.GAME_WIDRTH || y > TankFrame.GAME_HEGITH) live = false;
     }
 
 

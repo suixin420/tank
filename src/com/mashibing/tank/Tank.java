@@ -41,7 +41,6 @@ public class Tank {
         g.setColor(Color.YELLOW);
         g.fillRect(x, y, width, hight);
         g.setColor(color);
-
     }
 
     private void move() {
@@ -67,9 +66,8 @@ public class Tank {
         }
         if (x <0  )x = 0;
         if (y <0  )y = 0;
-        if (x > TankFrame.frameWidth)x = TankFrame.frameWidth;
-        if (y > TankFrame.frameHegith)y = TankFrame.frameHegith;
-
+        if (x > TankFrame.GAME_WIDRTH)x = TankFrame.GAME_WIDRTH;
+        if (y > TankFrame.GAME_HEGITH)y = TankFrame.GAME_HEGITH;
     }
 
 
