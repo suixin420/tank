@@ -9,10 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TankFrame extends Frame {
-    Tank myTank = new Tank(200,200,Dir.DOWN,this);
+    Tank myTank = new Tank(100,200,Dir.DOWN,this,Group.GOOD);
     List<Build> builds = new ArrayList<Build>();
     static final Integer GAME_WIDRTH=800, GAME_HEGITH=800;
-
     List<Tank> tanks = new ArrayList<Tank>();
 
     public TankFrame(){
@@ -67,9 +66,9 @@ public class TankFrame extends Frame {
             }
         }
 
-
     }
 
+    /**监听按键*/
     class MykeyListener extends KeyAdapter{
         boolean bl = false;
         boolean bu = false;
