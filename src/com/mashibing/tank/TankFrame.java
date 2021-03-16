@@ -9,16 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TankFrame extends Frame {
-    Tank myTank = new Tank(200,200,Dir.DOWN,this);
-    List<Build> buildList = new ArrayList<Build>();
-    static final Integer frameWidth=800, frameHegith=800;
+    Tank myTank = new Tank(100,200,Dir.DOWN,this,Group.GOOD);
+    List<Build> builds = new ArrayList<Build>();
+    static final Integer GAME_WIDRTH=800, GAME_HEGITH=800;
+    List<Tank> tanks = new ArrayList<Tank>();
 
     public TankFrame(){
-        setSize(frameWidth,frameHegith);
+        setSize(GAME_WIDRTH,GAME_HEGITH);
         setResizable(false);
         setTitle("窗口");
         setVisible(true);
-
         this.addKeyListener(new MykeyListener());
 
         addWindowListener(new WindowAdapter() {
@@ -29,19 +29,46 @@ public class TankFrame extends Frame {
         });
     }
 
+    Image offScreenImage = null;
+    @Override
+    public void update(Graphics g){
+        if (offScreenImage == null){
+            offScreenImage = this.createImage(GAME_WIDRTH,GAME_HEGITH);
+        }
+        Graphics gOffScreen =offScreenImage.getGraphics();
+        Color color = gOffScreen.getColor();
+        gOffScreen.setColor(Color.black);
+        gOffScreen.fillRect(0,0,GAME_WIDRTH,GAME_HEGITH);
+        gOffScreen.setColor(color);
+        paint(gOffScreen);
+        g.drawImage(offScreenImage,0,0,null);
+    }
+
+
     public void paint(Graphics g){
         System.out.println("第一次打开或者隐藏后打开");
         Color color = g.getColor();
-        g.setColor(Color.black);
-        g.drawString("子弹数量"+buildList.size(),10,60);
+        g.setColor(Color.white);
+        g.drawString("子弹数量"+builds.size(),10,60);
+        g.drawString("坦克数量"+tanks.size(),10,80);
         g.setColor(color);
+
         myTank.paint(g);
-        for (int i=0;i<buildList.size();i++){
-            buildList.get(i).paint(g);
+        for (int i=0;i<builds.size();i++){
+            builds.get(i).paint(g);
+        }
+        for (int i=0;i<tanks.size();i++){
+            tanks.get(i).paint(g);
+        }
+        for (int i=0; i<builds.size();i++){
+            for (int j=0; j<tanks.size();j++){
+                builds.get(i).collideWith(tanks.get(i));
+            }
         }
 
     }
 
+    /**监听按键*/
     class MykeyListener extends KeyAdapter{
         boolean bl = false;
         boolean bu = false;
