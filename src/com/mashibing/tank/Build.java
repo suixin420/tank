@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class Build {
     private static final Integer speed=10;
-    private static final Integer width=20, hight=20;
+    public static final Integer width=ResourceMgr.build.getWidth(), hight=ResourceMgr.build.getHeight();
     private Integer x=10,y=10;
     private Dir dir;
     private boolean live = true;
@@ -39,11 +39,12 @@ public class Build {
             tf.buildList.remove(this);
         }
 
-        Color color = g.getColor();
-        g.setColor(Color.red);
-        g.fillOval(x, y, width, hight);
-        g.setColor(color);
+//        Color color = g.getColor();
+//        g.setColor(Color.white);
+//        g.fillOval(x, y, width, hight);
+//        g.setColor(color);
         move();
+        g.drawImage(ResourceMgr.build,x, y,null);
     }
 
     private void move() {

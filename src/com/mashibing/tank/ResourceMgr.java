@@ -1,22 +1,19 @@
 package com.mashibing.tank;
 
-import com.sun.prism.Image;
-
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.IOException;
 
 public class ResourceMgr {
-    public static BufferedImage tankL,tankU,tankR,tankD;
+    public static BufferedImage tankL,tankU,tankR,tankD,build;
 
     static {
         try {
-            tankL = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("com/image/1.jpg"));
-            tankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("com/image/2.jpg"));
-            tankR = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("com/image/3.jpg"));
-            tankD = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("com/image/4.jpg"));
+            build = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("com/image/build.png"));
+            tankL = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("com/image/tankL.png"));
+            tankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("com/image/tankU.png"));
+            tankR = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("com/image/tankR.png"));
+            tankD = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("com/image/tankD.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

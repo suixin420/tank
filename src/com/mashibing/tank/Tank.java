@@ -2,14 +2,16 @@ package com.mashibing.tank;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 
 public class Tank {
     private Integer x=20,y=20;
-    private static final Integer width=50, hight=50;
+    private static final Integer tankWidth=ResourceMgr.tankD.getWidth(), tankHight=ResourceMgr.tankD.getWidth();
     private Dir dir;
      static final Integer speed=5;
     private boolean moving = false;
     TankFrame tf=null;
+    private BufferedImage image = ResourceMgr.tankD;
 
     public Tank(Integer x, Integer y,Dir dir,TankFrame tf) {
         this.x = x;
@@ -36,11 +38,12 @@ public class Tank {
 
     public void paint(Graphics g) {
         System.out.println("坦克开始跑");
-        Color color = g.getColor();
         move();
-        g.setColor(Color.YELLOW);
-        g.fillRect(x, y, width, hight);
-        g.setColor(color);
+//        Color color = g.getColor();
+//        g.setColor(Color.YELLOW);
+//        g.fillRect(x, y, width, hight);
+//        g.setColor(color);
+        g.drawImage(image,x, y,null);
     }
 
     private void move() {
@@ -49,17 +52,21 @@ public class Tank {
             case LEFT:
                 System.out.println("左键");
                 x -=speed;
+                image = ResourceMgr.tankL;
                 break;
             case RIGHT:
                 System.out.println("右键");
                 x +=speed;
+                image = ResourceMgr.tankR;
                 break;
             case UP:
                 System.out.println("上键");
                 y -=speed;
+                image = ResourceMgr.tankU;
                 break;
             case DOWN:
                 y +=speed;
+                image = ResourceMgr.tankD;
                 break;
             default:
                 break;
@@ -72,6 +79,8 @@ public class Tank {
 
 
     public void fire() {
-        tf.buildList.add(new Build(this.x,this.y,this.dir,this.tf));
+        int bx = this.x + this.tankWidth/2 - Build.width/2;
+        int by = this.y + this.tankHight/2 - Build.hight/2;
+        tf.buildList.add(new Build(bx,by,this.dir,this.tf));
     }
 }
