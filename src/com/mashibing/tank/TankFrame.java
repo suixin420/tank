@@ -10,8 +10,10 @@ import java.util.List;
 
 public class TankFrame extends Frame {
     Tank myTank = new Tank(200,200,Dir.DOWN,this);
-    List<Build> buildList = new ArrayList<Build>();
+    List<Build> builds = new ArrayList<Build>();
     static final Integer GAME_WIDRTH=800, GAME_HEGITH=800;
+
+    List<Tank> tanks = new ArrayList<Tank>();
 
     public TankFrame(){
         setSize(GAME_WIDRTH,GAME_HEGITH);
@@ -48,11 +50,21 @@ public class TankFrame extends Frame {
         System.out.println("第一次打开或者隐藏后打开");
         Color color = g.getColor();
         g.setColor(Color.white);
-        g.drawString("子弹数量"+buildList.size(),10,60);
+        g.drawString("子弹数量"+builds.size(),10,60);
+        g.drawString("坦克数量"+tanks.size(),10,80);
         g.setColor(color);
+
         myTank.paint(g);
-        for (int i=0;i<buildList.size();i++){
-            buildList.get(i).paint(g);
+        for (int i=0;i<builds.size();i++){
+            builds.get(i).paint(g);
+        }
+        for (int i=0;i<tanks.size();i++){
+            tanks.get(i).paint(g);
+        }
+        for (int i=0; i<builds.size();i++){
+            for (int j=0; j<tanks.size();j++){
+                builds.get(i).collideWith(tanks.get(i));
+            }
         }
 
 

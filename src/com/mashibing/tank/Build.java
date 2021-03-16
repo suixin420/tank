@@ -7,7 +7,7 @@ public class Build {
     public static final Integer width=ResourceMgr.build.getWidth(), hight=ResourceMgr.build.getHeight();
     private Integer x=10,y=10;
     private Dir dir;
-    private boolean live = true;
+    private boolean living = true;
     private TankFrame tf = null;
 
     public Build(Integer x, Integer y, Dir dir,TankFrame tf) {
@@ -17,13 +17,6 @@ public class Build {
         this.tf = tf;
     }
 
-    public boolean getLive() {
-        return live;
-    }
-
-    public void setLive(boolean live) {
-        this.live = live;
-    }
 
     public Dir getDir() {
         return dir;
@@ -35,8 +28,8 @@ public class Build {
 
 
     public void paint(Graphics g) {
-        if (!live){
-            tf.buildList.remove(this);
+        if (!living){
+            tf.builds.remove(this);
         }
 
 //        Color color = g.getColor();
@@ -64,8 +57,20 @@ public class Build {
             default:
                 break;
         }
-        if (x <0 || y <0 || x > TankFrame.GAME_WIDRTH || y > TankFrame.GAME_HEGITH) live = false;
+        if (x <0 || y <0 || x > TankFrame.GAME_WIDRTH || y > TankFrame.GAME_HEGITH) this.living = false;
     }
 
 
+    public void collideWith(Tank tank) {
+        Rectangle rect1 = new Rectangle(this.x,this.y,width,hight);
+        Rectangle rect2 = new Rectangle(tank.getX(),tank.getY(),tank.tankWidth,tank.tankHight);
+        if (rect1.intersects(rect2)){
+            tank.die();
+            this.die();
+        }
+    }
+
+    private void die() {
+        this.living=false;
+    }
 }

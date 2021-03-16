@@ -6,12 +6,13 @@ import java.awt.image.BufferedImage;
 
 public class Tank {
     private Integer x=20,y=20;
-    private static final Integer tankWidth=ResourceMgr.tankD.getWidth(), tankHight=ResourceMgr.tankD.getWidth();
+    public static final Integer tankWidth=ResourceMgr.tankD.getWidth(), tankHight=ResourceMgr.tankD.getWidth();
     private Dir dir;
      static final Integer speed=5;
     private boolean moving = false;
     TankFrame tf=null;
     private BufferedImage image = ResourceMgr.tankD;
+    private boolean living=true;
 
     public Tank(Integer x, Integer y,Dir dir,TankFrame tf) {
         this.x = x;
@@ -22,6 +23,22 @@ public class Tank {
 
     public Dir getDir() {
         return dir;
+    }
+
+    public Integer getX() {
+        return x;
+    }
+
+    public void setX(Integer x) {
+        this.x = x;
+    }
+
+    public Integer getY() {
+        return y;
+    }
+
+    public void setY(Integer y) {
+        this.y = y;
     }
 
     public void setDir(Dir dir) {
@@ -38,6 +55,10 @@ public class Tank {
 
     public void paint(Graphics g) {
         System.out.println("坦克开始跑");
+        if (!living){
+            tf.tanks.remove(this);
+            return;
+        }
         move();
 //        Color color = g.getColor();
 //        g.setColor(Color.YELLOW);
@@ -81,6 +102,10 @@ public class Tank {
     public void fire() {
         int bx = this.x + this.tankWidth/2 - Build.width/2;
         int by = this.y + this.tankHight/2 - Build.hight/2;
-        tf.buildList.add(new Build(bx,by,this.dir,this.tf));
+        tf.builds.add(new Build(bx,by,this.dir,this.tf));
+    }
+
+    public void die() {
+        this.living = false;
     }
 }
