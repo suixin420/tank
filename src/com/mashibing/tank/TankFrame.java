@@ -62,7 +62,7 @@ public class TankFrame extends Frame {
         }
         for (int i=0; i<builds.size();i++){
             for (int j=0; j<tanks.size();j++){
-                builds.get(i).collideWith(tanks.get(i));
+                builds.get(i).collideWith(tanks.get(j));
             }
         }
 
