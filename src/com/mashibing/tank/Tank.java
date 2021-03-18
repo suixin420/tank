@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class Tank {
     private Integer x=20,y=20;
-    public static final Integer tankWidth=ResourceMgr.goodTankD.getWidth(), tankHight=ResourceMgr.goodTankD.getWidth();
+    public static final Integer tankWidth=ResourceMgr.goodTankD.getWidth(), tankHeght=ResourceMgr.goodTankD.getWidth();
     private Dir dir;
      static final Integer speed=3;
     private boolean moving = true;
@@ -16,6 +16,7 @@ public class Tank {
     private boolean living=true;
     private Group group = Group.BAD;
     private Random random = new Random();
+    Rectangle rectangle = new Rectangle();
 
     public Tank(Integer x, Integer y,Dir dir,TankFrame tf,Group group) {
         this.x = x;
@@ -23,6 +24,11 @@ public class Tank {
         this.dir = dir;
         this.tf = tf;
         this.group = group;
+
+        this.rectangle.x = this.x;
+        this.rectangle.y = this.y;
+        this.rectangle.width = this.tankWidth;
+        this.rectangle.height = this.tankHeght;
     }
 
     public Dir getDir() {
@@ -91,6 +97,9 @@ public class Tank {
         /**边界返回*/
         boundsCheck();
 
+        this.rectangle.x = this.x;
+        this.rectangle.y = this.y;
+
         if (this.group == Group.BAD){
             if (random.nextInt(10) >8)this.fire();
             if (random.nextInt(10) >8)randomDir();
@@ -101,7 +110,7 @@ public class Tank {
         if (x < 0) x = 2;
         if (y < 28) y = 28;
         if (x > TankFrame.GAME_WIDRTH -2)x = TankFrame.GAME_WIDRTH - Tank.tankWidth-2;
-        if (y > TankFrame.GAME_HEGITH -2)y = TankFrame.GAME_HEGITH - Tank.tankHight-2;
+        if (y > TankFrame.GAME_HEGITH -2)y = TankFrame.GAME_HEGITH - Tank.tankHeght-2;
     }
 
     private void randomDir() {
@@ -112,7 +121,7 @@ public class Tank {
     /*打子弹 */
     public void fire() {
         int bx = this.x + this.tankWidth/2 - Build.width/2;
-        int by = this.y + this.tankHight/2 - Build.hight/2;
+        int by = this.y + this.tankHeght/2 - Build.height/2;
         tf.builds.add(new Build(bx,by,this.dir,this.tf,this.group));
     }
 

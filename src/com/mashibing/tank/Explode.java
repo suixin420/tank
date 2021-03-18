@@ -28,7 +28,7 @@ public class Explode {
     public void paint(Graphics g) {
         g.drawImage(ResourceMgr.explode[step++],x, y,null);
         if (step >= ResourceMgr.explode.length){
-            step = 0;
+//            step = 0;
             tf.explodes.remove(this);
         }
     }

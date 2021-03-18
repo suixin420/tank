@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Build {
     private static final Integer speed=10;
-    public static final Integer width=ResourceMgr.buildD.getWidth(), hight=ResourceMgr.buildD.getHeight();
+    public static final Integer width=ResourceMgr.buildD.getWidth(), height=ResourceMgr.buildD.getHeight();
     private BufferedImage image = ResourceMgr.buildD;
     private Integer x=10,y=10;
     private Dir dir;
@@ -14,6 +14,7 @@ public class Build {
     private boolean living = true;
     private TankFrame tf = null;
     private Group group = Group.BAD;
+    Rectangle rectangle = new Rectangle();
 
 
     public Build(Integer x, Integer y, Dir dir,TankFrame tf,Group group) {
@@ -22,6 +23,11 @@ public class Build {
         this.dir = dir;
         this.tf = tf;
         this.group = group;
+
+        this.rectangle.x = this.x;
+        this.rectangle.y = this.y;
+        this.rectangle.width = this.width;
+        this.rectangle.height = this.height;
     }
 
     public Dir getDir() {
@@ -62,6 +68,9 @@ public class Build {
                 break;
         }
         if (x <0 || y <0 || x > TankFrame.GAME_WIDRTH || y > TankFrame.GAME_HEGITH) this.living = false;
+
+        rectangle.x = this.x;
+        rectangle.y = this.y;
     }
 
 
@@ -71,10 +80,7 @@ public class Build {
      */
     public void collideWith(Tank tank) {
         if (this.group == tank.getGroup())return;
-
-        Rectangle rect1 = new Rectangle(this.x,this.y,width,hight);
-        Rectangle rect2 = new Rectangle(tank.getX(),tank.getY(),tank.tankWidth,tank.tankHight);
-        if (rect1.intersects(rect2)){
+        if (this.rectangle.intersects(tank.rectangle)){
             tank.die();
             this.die();
         }
