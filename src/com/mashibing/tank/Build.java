@@ -1,13 +1,16 @@
 package com.mashibing.tank;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Build {
     private static final Integer speed=10;
-    public static final Integer width=ResourceMgr.build.getWidth(), hight=ResourceMgr.build.getHeight();
+    public static final Integer width=ResourceMgr.buildD.getWidth(), hight=ResourceMgr.buildD.getHeight();
+    private BufferedImage image = ResourceMgr.buildD;
     private Integer x=10,y=10;
     private Dir dir;
+
     private boolean living = true;
     private TankFrame tf = null;
     private Group group = Group.BAD;
@@ -34,22 +37,26 @@ public class Build {
         }
 
         move();
-        g.drawImage(ResourceMgr.build,x, y,null);
+        g.drawImage(image,x, y,null);
     }
 
     private void move() {
         switch (dir){
             case LEFT:
                 x -= speed;
+                image = ResourceMgr.buildL;
                 break;
             case RIGHT:
                 x += speed;
+                image = ResourceMgr.buildR;
                 break;
             case UP:
                 y -= speed;
+                image = ResourceMgr.buildU;
                 break;
             case DOWN:
                 y += speed;
+                image = ResourceMgr.buildD;
                 break;
             default:
                 break;

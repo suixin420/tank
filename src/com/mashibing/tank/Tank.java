@@ -59,6 +59,9 @@ public class Tank {
     public void paint(Graphics g) {
         if (!living){
             tf.tanks.remove(this);
+            tf.explode.setLiving(true);
+            tf.explode.setX(this.x);
+            tf.explode.setY(this.y);
             return;
         }
         move();

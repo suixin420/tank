@@ -13,6 +13,7 @@ public class TankFrame extends Frame {
     List<Build> builds = new ArrayList<Build>();
     static final Integer GAME_WIDRTH=800, GAME_HEGITH=800;
     List<Tank> tanks = new ArrayList<Tank>();
+    Explode explode = new Explode();
 
     public TankFrame(){
         setSize(GAME_WIDRTH,GAME_HEGITH);
@@ -65,6 +66,7 @@ public class TankFrame extends Frame {
                 builds.get(i).collideWith(tanks.get(j));
             }
         }
+        explode.paint(g);
 
     }
 
