@@ -46,7 +46,6 @@ public class TankFrame extends Frame {
     }
 
     public void paint(Graphics g){
-        System.out.println("第一次打开或者隐藏后打开");
         Color color = g.getColor();
         g.setColor(Color.white);
         g.drawString("子弹数量"+builds.size(),10,60);
@@ -104,11 +103,8 @@ public class TankFrame extends Frame {
             setMainTankDir();
         }
 
-
-
         @Override
         public void keyReleased(KeyEvent e) {
-            System.out.println("抬起键盘");
             int key = e.getKeyCode();
             switch (key){
                 case KeyEvent.VK_LEFT:

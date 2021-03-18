@@ -5,7 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class ResourceMgr {
-    public static BufferedImage tankL,tankU,tankR,tankD;
+    public static BufferedImage goodTankL,goodTankU,goodTankR,goodTankD;
+    public static BufferedImage badTankL,badTankU,badTankR,badTankD;
     public static BufferedImage buildL,buildU,buildR,buildD;
     public static BufferedImage[] explode = new BufferedImage[16];
 
@@ -26,10 +27,15 @@ public class ResourceMgr {
 //            tankR = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("com/images/tankR.gif"));
 //            tankD = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("com/images/tankD.gif"));
 
-            tankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("com/images/GoodTank1.png"));
-            tankL = ImageUtil.rotateImage(tankU,-90);
-            tankR = ImageUtil.rotateImage(tankU,90);
-            tankD = ImageUtil.rotateImage(tankU,180);
+            goodTankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("com/images/GoodTank1.png"));
+            goodTankL = ImageUtil.rotateImage(goodTankU,-90);
+            goodTankR = ImageUtil.rotateImage(goodTankU,90);
+            goodTankD = ImageUtil.rotateImage(goodTankU,180);
+
+            badTankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("com/images/BadTank1.png"));
+            badTankL = ImageUtil.rotateImage(badTankU,-90);
+            badTankR = ImageUtil.rotateImage(badTankU,90);
+            badTankD = ImageUtil.rotateImage(badTankU,180);
 
             for (int i = 0; i < 16; i++){
                 explode[i] = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("com/images/e"+(i+1)+".gif"));

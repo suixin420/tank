@@ -26,7 +26,6 @@ public class Explode {
     }
 
     public void paint(Graphics g) {
-        System.out.println("进入================");
         g.drawImage(ResourceMgr.explode[step++],x, y,null);
         if (step >= ResourceMgr.explode.length){
             step = 0;

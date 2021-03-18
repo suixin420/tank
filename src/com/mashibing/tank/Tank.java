@@ -7,12 +7,12 @@ import java.util.Random;
 
 public class Tank {
     private Integer x=20,y=20;
-    public static final Integer tankWidth=ResourceMgr.tankD.getWidth(), tankHight=ResourceMgr.tankD.getWidth();
+    public static final Integer tankWidth=ResourceMgr.goodTankD.getWidth(), tankHight=ResourceMgr.goodTankD.getWidth();
     private Dir dir;
      static final Integer speed=3;
     private boolean moving = true;
     TankFrame tf=null;
-    private BufferedImage image = ResourceMgr.tankD;
+    private BufferedImage image = ResourceMgr.goodTankD;
     private boolean living=true;
     private Group group = Group.BAD;
     private Random random = new Random();
@@ -70,49 +70,38 @@ public class Tank {
         if (!moving) return;
         switch (dir){
             case LEFT:
-                System.out.println("左键");
                 x -=speed;
-                image = ResourceMgr.tankL;
+                image = this.group == Group.GOOD?ResourceMgr.goodTankL:ResourceMgr.badTankL;
                 break;
             case RIGHT:
-                System.out.println("右键");
                 x +=speed;
-                image = ResourceMgr.tankR;
+                image = this.group == Group.GOOD?ResourceMgr.goodTankR:ResourceMgr.badTankR;
                 break;
             case UP:
-                System.out.println("上键");
                 y -=speed;
-                image = ResourceMgr.tankU;
+                image = this.group == Group.GOOD?ResourceMgr.goodTankU:ResourceMgr.badTankU;
                 break;
             case DOWN:
                 y +=speed;
-                image = ResourceMgr.tankD;
+                image = this.group == Group.GOOD?ResourceMgr.goodTankD:ResourceMgr.badTankD;
                 break;
             default:
                 break;
         }
         /**边界返回*/
-        if (x <0){
-            dir=Dir.RIGHT;
-            move();
-        }
-        if (y <0){
-            dir=Dir.DOWN;
-            move();
-        }
-        if (x > TankFrame.GAME_WIDRTH){
-            dir=Dir.LEFT;
-            move();
-        }
-        if (y > TankFrame.GAME_HEGITH){
-            dir=Dir.UP;
-            move();
-        }
+        boundsCheck();
 
         if (this.group == Group.BAD){
             if (random.nextInt(10) >8)this.fire();
             if (random.nextInt(10) >8)randomDir();
         }
+    }
+
+    private void boundsCheck() {
+        if (x < 0) x = 2;
+        if (y < 28) y = 28;
+        if (x > TankFrame.GAME_WIDRTH -2)x = TankFrame.GAME_WIDRTH - Tank.tankWidth-2;
+        if (y > TankFrame.GAME_HEGITH -2)y = TankFrame.GAME_HEGITH - Tank.tankHight-2;
     }
 
     private void randomDir() {
