@@ -9,21 +9,12 @@ public class Explode {
     private Integer x=10,y=10;
     private Integer step=0;
     private boolean living = false;
+    TankFrame tf=null;
 
-    public Integer getX() {
-        return x;
-    }
-
-    public void setX(Integer x) {
+    public Explode(Integer x, Integer y,TankFrame tf) {
         this.x = x;
-    }
-
-    public Integer getY() {
-        return y;
-    }
-
-    public void setY(Integer y) {
         this.y = y;
+        this.tf = tf;
     }
 
     public boolean getLiving() {
@@ -36,11 +27,10 @@ public class Explode {
 
     public void paint(Graphics g) {
         System.out.println("进入================");
-        if (!living)return;
         g.drawImage(ResourceMgr.explode[step++],x, y,null);
         if (step >= ResourceMgr.explode.length){
             step = 0;
-            living = false;
+            tf.explodes.remove(this);
         }
     }
 

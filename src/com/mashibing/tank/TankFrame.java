@@ -11,9 +11,9 @@ import java.util.List;
 public class TankFrame extends Frame {
     Tank myTank = new Tank(100,200,Dir.DOWN,this,Group.GOOD);
     List<Build> builds = new ArrayList<Build>();
-    static final Integer GAME_WIDRTH=800, GAME_HEGITH=800;
+    static final Integer GAME_WIDRTH=1000, GAME_HEGITH=1000;
     List<Tank> tanks = new ArrayList<Tank>();
-    Explode explode = new Explode();
+    List<Explode> explodes = new ArrayList<Explode>();
 
     public TankFrame(){
         setSize(GAME_WIDRTH,GAME_HEGITH);
@@ -45,7 +45,6 @@ public class TankFrame extends Frame {
         g.drawImage(offScreenImage,0,0,null);
     }
 
-
     public void paint(Graphics g){
         System.out.println("第一次打开或者隐藏后打开");
         Color color = g.getColor();
@@ -66,7 +65,9 @@ public class TankFrame extends Frame {
                 builds.get(i).collideWith(tanks.get(j));
             }
         }
-        explode.paint(g);
+        for (int i=0;i<explodes.size();i++){
+            explodes.get(i).paint(g);
+        }
 
     }
 

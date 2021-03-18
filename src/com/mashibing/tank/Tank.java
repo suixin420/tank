@@ -59,9 +59,7 @@ public class Tank {
     public void paint(Graphics g) {
         if (!living){
             tf.tanks.remove(this);
-            tf.explode.setLiving(true);
-            tf.explode.setX(this.x);
-            tf.explode.setY(this.y);
+            tf.explodes.add(new Explode(this.x,this.y,tf));
             return;
         }
         move();
@@ -93,6 +91,7 @@ public class Tank {
             default:
                 break;
         }
+        /**边界返回*/
         if (x <0){
             dir=Dir.RIGHT;
             move();
@@ -110,7 +109,14 @@ public class Tank {
             move();
         }
 
-        if (random.nextInt(10) >8)this.fire();
+        if (this.group == Group.BAD){
+            if (random.nextInt(10) >8)this.fire();
+            if (random.nextInt(10) >8)randomDir();
+        }
+    }
+
+    private void randomDir() {
+        this.dir = Dir.values()[random.nextInt(4)];
     }
 
 
