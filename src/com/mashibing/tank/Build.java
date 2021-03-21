@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Build {
-    private static final Integer speed=10;
+    private static final Integer speed=Integer.parseInt(PorioertiesMgr.get("bulletSpeed").toString());
     public static final Integer width=ResourceMgr.buildD.getWidth(), hight=ResourceMgr.buildD.getHeight();
     private BufferedImage image = ResourceMgr.buildD;
     private Integer x=10,y=10;
@@ -22,6 +22,8 @@ public class Build {
         this.dir = dir;
         this.tf = tf;
         this.group = group;
+
+        tf.builds.add(this);
     }
 
     public Dir getDir() {
@@ -70,10 +72,10 @@ public class Build {
      * @param tank
      */
     public void collideWith(Tank tank) {
-        if (this.group == tank.getGroup())return;
+        if (this.group == tank.group )return;
 
         Rectangle rect1 = new Rectangle(this.x,this.y,width,hight);
-        Rectangle rect2 = new Rectangle(tank.getX(),tank.getY(),tank.tankWidth,tank.tankHight);
+        Rectangle rect2 = new Rectangle(tank.x,tank.y,tank.tankWidth,tank.tankHight);
         if (rect1.intersects(rect2)){
             tank.die();
             this.die();

@@ -10,6 +10,24 @@ public class ResourceMgr {
     public static BufferedImage buildL,buildU,buildR,buildD;
     public static BufferedImage[] explode = new BufferedImage[16];
 
+
+    private ResourceMgr(){
+
+    }
+
+    private static class ResourceMgrHold{
+        private final static ResourceMgr INSTANCE =new ResourceMgr();
+    }
+
+    public static ResourceMgr getInstance(){
+        return ResourceMgrHold.INSTANCE;
+    }
+
+//    private final static ResourceMgr INSTANCE =new ResourceMgr();
+//    public static ResourceMgr getInstance(){
+//        return INSTANCE;
+//    }
+
     static {
         try {
 //            buildL = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("com/images/bulletL.gif"));

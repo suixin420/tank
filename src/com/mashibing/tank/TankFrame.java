@@ -11,7 +11,8 @@ import java.util.List;
 public class TankFrame extends Frame {
     Tank myTank = new Tank(100,200,Dir.DOWN,this,Group.GOOD);
     List<Build> builds = new ArrayList<Build>();
-    static final Integer GAME_WIDRTH=1000, GAME_HEGITH=1000;
+    static final Integer GAME_WIDRTH=Integer.parseInt(PorioertiesMgr.get("gameWidth").toString());
+    static final Integer GAME_HEGITH=Integer.parseInt(PorioertiesMgr.get("gameHeight").toString());
     List<Tank> tanks = new ArrayList<Tank>();
     List<Explode> explodes = new ArrayList<Explode>();
 
@@ -94,7 +95,8 @@ public class TankFrame extends Frame {
                     bd = true;
                     break;
                 case KeyEvent.VK_CONTROL:
-                    myTank.fire();
+                    FireFactory fireFactory = new FourDirFire();
+                    fireFactory.fire(myTank);
                     break;
                 default:
                     break;

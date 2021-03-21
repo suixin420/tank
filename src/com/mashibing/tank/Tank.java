@@ -6,16 +6,19 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Tank {
-    private Integer x=20,y=20;
+    public Integer x=20,y=20;
     public static final Integer tankWidth=ResourceMgr.goodTankD.getWidth(), tankHight=ResourceMgr.goodTankD.getWidth();
-    private Dir dir;
-     static final Integer speed=3;
+    public Dir dir;
+    static final Integer speed=Integer.parseInt(PorioertiesMgr.get("tankSpeed").toString());
     private boolean moving = true;
     TankFrame tf=null;
     private BufferedImage image = ResourceMgr.goodTankD;
     private boolean living=true;
-    private Group group = Group.BAD;
+    public Group group = Group.BAD;
     private Random random = new Random();
+
+    FireFactory fireFactory;
+
 
     public Tank(Integer x, Integer y,Dir dir,TankFrame tf,Group group) {
         this.x = x;
@@ -23,35 +26,31 @@ public class Tank {
         this.dir = dir;
         this.tf = tf;
         this.group = group;
+
+        if (this.group == Group.GOOD){
+            String fireFactoryName = PorioertiesMgr.get("goodDirFire").toString();
+            try {
+                fireFactory = (FireFactory)Class.forName(fireFactoryName).getDeclaredConstructor().newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else {
+            fireFactory = new DefaulFire();
+        }
     }
 
     public Dir getDir() {
         return dir;
     }
-    public Integer getX() {
-        return x;
-    }
-    public Group getGroup() {
-        return group;
-    }
-    public void setGroup(Group group) {
-        this.group = group;
-    }
-    public void setX(Integer x) {
-        this.x = x;
-    }
-    public Integer getY() {
-        return y;
-    }
-    public void setY(Integer y) {
-        this.y = y;
-    }
+
     public void setDir(Dir dir) {
         this.dir = dir;
     }
-    public boolean getMoving() {
+
+    public boolean isMoving() {
         return moving;
     }
+
     public void setMoving(boolean moving) {
         this.moving = moving;
     }
@@ -92,9 +91,13 @@ public class Tank {
         boundsCheck();
 
         if (this.group == Group.BAD){
-            if (random.nextInt(10) >8)this.fire();
+            if (random.nextInt(10) >8){
+
+                fire();
+            }
             if (random.nextInt(10) >8)randomDir();
         }
+
     }
 
     private void boundsCheck() {
@@ -111,9 +114,7 @@ public class Tank {
 
     /*打子弹 */
     public void fire() {
-        int bx = this.x + this.tankWidth/2 - Build.width/2;
-        int by = this.y + this.tankHight/2 - Build.hight/2;
-        tf.builds.add(new Build(bx,by,this.dir,this.tf,this.group));
+        fireFactory.fire(this);
     }
 
     public void die() {
