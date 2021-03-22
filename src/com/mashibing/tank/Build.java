@@ -1,12 +1,15 @@
 package com.mashibing.tank;
 
+import com.mashibing.abstractFactory.BaseBuild;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Build {
-    private static final Integer speed=10;
-    public static final Integer width=ResourceMgr.buildD.getWidth(), height=ResourceMgr.buildD.getHeight();
+public class Build extends BaseBuild {
+
+    private static final Integer speed=Integer.parseInt(PorioertiesMgr.get("bulletSpeed").toString());
+    public static final Integer width=ResourceMgr.buildD.getWidth(), hight=ResourceMgr.buildD.getHeight();
     private BufferedImage image = ResourceMgr.buildD;
     private Integer x=10,y=10;
     private Dir dir;
@@ -27,7 +30,8 @@ public class Build {
         this.rectangle.x = this.x;
         this.rectangle.y = this.y;
         this.rectangle.width = this.width;
-        this.rectangle.height = this.height;
+        this.rectangle.height = this.hight;
+        tf.builds.add(this);
     }
 
     public Dir getDir() {
@@ -37,6 +41,7 @@ public class Build {
         this.dir = dir;
     }
 
+    @Override
     public void paint(Graphics g) {
         if (!living){
             tf.builds.remove(this);
@@ -78,11 +83,18 @@ public class Build {
      * 碰撞检测
      * @param tank
      */
+    @Override
     public void collideWith(Tank tank) {
-        if (this.group == tank.getGroup())return;
-        if (this.rectangle.intersects(tank.rectangle)){
-            tank.die();
-            this.die();
+        if (this.group == tank.group) return;
+        if (this.rectangle.intersects(tank.rectangle)) {
+            if (this.group == tank.group) return;
+
+            Rectangle rect1 = new Rectangle(this.x, this.y, width, hight);
+            Rectangle rect2 = new Rectangle(tank.x, tank.y, tank.tankWidth, tank.tankHight);
+            if (rect1.intersects(rect2)) {
+                tank.die();
+                this.die();
+            }
         }
     }
 

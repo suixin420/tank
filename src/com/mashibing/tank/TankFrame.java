@@ -1,5 +1,7 @@
 package com.mashibing.tank;
 
+import com.mashibing.abstractFactory.*;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -9,11 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TankFrame extends Frame {
+    GameFactory gf = new DefaultFactory();
+
     Tank myTank = new Tank(100,200,Dir.DOWN,this,Group.GOOD);
-    List<Build> builds = new ArrayList<Build>();
-    static final Integer GAME_WIDRTH=1000, GAME_HEGITH=1000;
+//    BaseTank myTank = gf.createTank(100,200,Dir.DOWN,this,Group.GOOD);
+    public List<BaseBuild> builds = new ArrayList<BaseBuild>();
+    public static final Integer GAME_WIDRTH=Integer.parseInt(PorioertiesMgr.get("gameWidth").toString());
+    public static final Integer GAME_HEGITH=Integer.parseInt(PorioertiesMgr.get("gameHeight").toString());
     List<Tank> tanks = new ArrayList<Tank>();
-    List<Explode> explodes = new ArrayList<Explode>();
+    public List<BaseExplode> explodes = new ArrayList<BaseExplode>();
+
 
     public TankFrame(){
         setSize(GAME_WIDRTH,GAME_HEGITH);
@@ -94,7 +101,8 @@ public class TankFrame extends Frame {
                     bd = true;
                     break;
                 case KeyEvent.VK_CONTROL:
-                    myTank.fire();
+                    FireFactory fireFactory = new FourDirFire();
+                    fireFactory.fire(myTank);
                     break;
                 default:
                     break;
