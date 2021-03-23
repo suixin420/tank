@@ -1,13 +1,12 @@
 package com.mashibing.tank;
 
-import com.mashibing.abstractFactory.BaseTank;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Tank extends BaseTank {
+public class Tank {
 
     public Integer x=20,y=20;
     public static final Integer tankWidth=ResourceMgr.goodTankD.getWidth(), tankHight=ResourceMgr.goodTankD.getWidth();
@@ -72,11 +71,10 @@ public class Tank extends BaseTank {
         this.moving = moving;
     }
 
-    @Override
     public void paint(Graphics g) {
         if (!living){
             tf.tanks.remove(this);
-            tf.explodes.add(tf.gf.createExplode(this.x,this.y,tf));
+            tf.explodes.add(new Explode(this.x,this.y,tf));
             return;
         }
         move();

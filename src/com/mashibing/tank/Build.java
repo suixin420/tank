@@ -1,12 +1,11 @@
 package com.mashibing.tank;
 
-import com.mashibing.abstractFactory.BaseBuild;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Build extends BaseBuild {
+public class Build{
 
     private static final Integer speed=Integer.parseInt(PorioertiesMgr.get("bulletSpeed").toString());
     public static final Integer width=ResourceMgr.buildD.getWidth(), hight=ResourceMgr.buildD.getHeight();
@@ -41,7 +40,6 @@ public class Build extends BaseBuild {
         this.dir = dir;
     }
 
-    @Override
     public void paint(Graphics g) {
         if (!living){
             tf.builds.remove(this);
@@ -83,7 +81,6 @@ public class Build extends BaseBuild {
      * 碰撞检测
      * @param tank
      */
-    @Override
     public void collideWith(Tank tank) {
         if (this.group == tank.group) return;
         if (this.rectangle.intersects(tank.rectangle)) {

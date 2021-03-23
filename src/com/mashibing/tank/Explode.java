@@ -1,11 +1,10 @@
 package com.mashibing.tank;
 
-import com.mashibing.abstractFactory.BaseExplode;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Explode extends BaseExplode {
+public class Explode {
 
     public static final Integer width=ResourceMgr.explode[0].getWidth(), hight=ResourceMgr.explode[0].getHeight();
     private Integer x=10,y=10;
@@ -27,7 +26,6 @@ public class Explode extends BaseExplode {
         this.living = living;
     }
 
-    @Override
     public void paint(Graphics g) {
         g.drawImage(ResourceMgr.explode[step++],x, y,null);
         if (step >= ResourceMgr.explode.length){
