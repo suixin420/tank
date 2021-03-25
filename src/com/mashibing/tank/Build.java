@@ -5,32 +5,31 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Build{
+public class Build extends GameObject{
 
     private static final Integer speed=Integer.parseInt(PorioertiesMgr.get("bulletSpeed").toString());
     public static final Integer width=ResourceMgr.buildD.getWidth(), hight=ResourceMgr.buildD.getHeight();
     private BufferedImage image = ResourceMgr.buildD;
-    private Integer x=10,y=10;
+//    private Integer x=10,y=10;
     private Dir dir;
 
     private boolean living = true;
-    private TankFrame tf = null;
-    private Group group = Group.BAD;
+    public Group group = Group.BAD;
     Rectangle rectangle = new Rectangle();
 
 
-    public Build(Integer x, Integer y, Dir dir,TankFrame tf,Group group) {
+    public Build(Integer x, Integer y, Dir dir,Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.tf = tf;
         this.group = group;
 
         this.rectangle.x = this.x;
         this.rectangle.y = this.y;
         this.rectangle.width = this.width;
         this.rectangle.height = this.hight;
-        tf.builds.add(this);
+//        GameModel.getInstance().builds.add(this);
+        GameModel.getInstance().add(this);
     }
 
     public Dir getDir() {
@@ -40,9 +39,10 @@ public class Build{
         this.dir = dir;
     }
 
+    @Override
     public void paint(Graphics g) {
         if (!living){
-            tf.builds.remove(this);
+            GameModel.getInstance().remove(this);
         }
 
         move();
@@ -79,23 +79,32 @@ public class Build{
 
     /**
      * 碰撞检测
-     * @param tank
+     * @return  true 没有碰撞 false碰撞发生
      */
-    public void collideWith(Tank tank) {
-        if (this.group == tank.group) return;
+    public boolean collideWith(Tank tank) {
+        if (this.group == tank.group) return true;
         if (this.rectangle.intersects(tank.rectangle)) {
-            if (this.group == tank.group) return;
+            if (this.group == tank.group){
+                return true;
+            }
+//            Rectangle rect1 = new Rectangle(this.x, this.y, width, hight);
+//            Rectangle rect2 = new Rectangle(tank.x, tank.y, tank.tankWidth, tank.tankHight);
 
-            Rectangle rect1 = new Rectangle(this.x, this.y, width, hight);
-            Rectangle rect2 = new Rectangle(tank.x, tank.y, tank.tankWidth, tank.tankHight);
+            Rectangle rect1 = this.rectangle;
+            Rectangle rect2 = tank.rectangle;
             if (rect1.intersects(rect2)) {
                 tank.die();
                 this.die();
+                return false;
+            }else {
+                return true;
             }
         }
+
+        return true;
     }
 
-    private void die() {
+    public void die() {
         this.living=false;
     }
 }

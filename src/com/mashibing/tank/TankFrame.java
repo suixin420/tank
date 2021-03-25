@@ -6,17 +6,11 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TankFrame extends Frame {
 
-    Tank myTank = new Tank(100,200,Dir.DOWN,this,Group.GOOD);
-    public List<Build> builds = new ArrayList<Build>();
     public static final Integer GAME_WIDRTH=Integer.parseInt(PorioertiesMgr.get("gameWidth").toString());
     public static final Integer GAME_HEGITH=Integer.parseInt(PorioertiesMgr.get("gameHeight").toString());
-    List<Tank> tanks = new ArrayList<Tank>();
-    public List<Explode> explodes = new ArrayList<Explode>();
 
 
     public TankFrame(){
@@ -50,27 +44,7 @@ public class TankFrame extends Frame {
     }
 
     public void paint(Graphics g){
-        Color color = g.getColor();
-        g.setColor(Color.white);
-        g.drawString("子弹数量"+builds.size(),10,60);
-        g.drawString("坦克数量"+tanks.size(),10,80);
-        g.setColor(color);
-
-        myTank.paint(g);
-        for (int i=0;i<builds.size();i++){
-            builds.get(i).paint(g);
-        }
-        for (int i=0;i<tanks.size();i++){
-            tanks.get(i).paint(g);
-        }
-        for (int i=0; i<builds.size();i++){
-            for (int j=0; j<tanks.size();j++){
-                builds.get(i).collideWith(tanks.get(j));
-            }
-        }
-        for (int i=0;i<explodes.size();i++){
-            explodes.get(i).paint(g);
-        }
+        GameModel.getInstance().paint(g);
 
     }
 
@@ -98,8 +72,7 @@ public class TankFrame extends Frame {
                     bd = true;
                     break;
                 case KeyEvent.VK_CONTROL:
-                    FireFactory fireFactory = new FourDirFire();
-                    fireFactory.fire(myTank);
+                    GameModel.getInstance().myTank.fire();
                     break;
                 default:
                     break;
@@ -132,6 +105,7 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir() {
+            Tank myTank = GameModel.getInstance().myTank;
             if (!bl && !br && !bu && !bd){
                 myTank.setMoving(false);
             }else {
