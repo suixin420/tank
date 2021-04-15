@@ -4,3 +4,4 @@ bulletSpeed=10
 gameWidth=1080
 gameHeight=720
 goodDirFire=com.mashibing.tank.FourDirFire
+colliderClass=com.mashibing.tank.BuildTankCollider,com.mashibing.tank.TankTankCollider,com.mashibing.tank.TankWallCollider

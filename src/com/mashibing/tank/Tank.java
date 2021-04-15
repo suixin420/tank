@@ -1,28 +1,27 @@
 package com.mashibing.tank;
 
-import com.mashibing.abstractFactory.BaseTank;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Tank extends BaseTank {
+public class Tank extends GameObject {
 
-    public Integer x=20,y=20;
+//    public Integer x=20,y=20;
     public static final Integer tankWidth=ResourceMgr.goodTankD.getWidth(), tankHight=ResourceMgr.goodTankD.getWidth();
     public Dir dir;
     static final Integer speed=Integer.parseInt(PorioertiesMgr.get("tankSpeed").toString());
     private boolean moving = true;
-    TankFrame tf=null;
+
     private BufferedImage image = ResourceMgr.goodTankD;
     private boolean living=true;
     public Group group = Group.BAD;
     private Random random = new Random();
     Rectangle rectangle = new Rectangle();
-
     FireFactory fireFactory;
 
+    public Integer oldx,oldy;
 
     public Rectangle getRectangle() {
         return rectangle;
@@ -32,12 +31,14 @@ public class Tank extends BaseTank {
         this.rectangle = rectangle;
     }
 
-    public Tank(Integer x, Integer y, Dir dir, TankFrame tf, Group group) {
+    public Tank(Integer x, Integer y, Dir dir,  Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.tf = tf;
         this.group = group;
+
+        this.oldx=this.x;
+        this.oldy=this.y;
 
         this.rectangle.x = this.x;
         this.rectangle.y = this.y;
@@ -75,57 +76,69 @@ public class Tank extends BaseTank {
     @Override
     public void paint(Graphics g) {
         if (!living){
-            tf.tanks.remove(this);
-            tf.explodes.add(tf.gf.createExplode(this.x,this.y,tf));
+            GameModel.getInstance().remove(this);
             return;
         }
-        move();
-        g.drawImage(image,x, y,null);
-    }
 
-    private void move() {
-        if (!moving) return;
         switch (dir){
             case LEFT:
-                x -=speed;
-                image = this.group == Group.GOOD?ResourceMgr.goodTankL:ResourceMgr.badTankL;
+                g.drawImage(this.group == Group.GOOD?ResourceMgr.goodTankL:ResourceMgr.badTankL,x, y,null);
                 break;
             case RIGHT:
-                x +=speed;
-                image = this.group == Group.GOOD?ResourceMgr.goodTankR:ResourceMgr.badTankR;
+                g.drawImage(this.group == Group.GOOD?ResourceMgr.goodTankR:ResourceMgr.badTankR,x, y,null);
                 break;
             case UP:
-                y -=speed;
-                image = this.group == Group.GOOD?ResourceMgr.goodTankU:ResourceMgr.badTankU;
+                g.drawImage(this.group == Group.GOOD?ResourceMgr.goodTankU:ResourceMgr.badTankU,x, y,null);
                 break;
             case DOWN:
-                y +=speed;
-                image = this.group == Group.GOOD?ResourceMgr.goodTankD:ResourceMgr.badTankD;
+                g.drawImage(this.group == Group.GOOD?ResourceMgr.goodTankD:ResourceMgr.badTankD,x, y,null);
                 break;
             default:
                 break;
         }
+        move();
+
+    }
+
+    private void move() {
+        this.oldx=x;
+        this.oldy=y;
+        if (!moving) return;
+
+        switch (dir){
+            case LEFT:
+                x -=speed;
+                break;
+            case RIGHT:
+                x +=speed;
+                break;
+            case UP:
+                y -=speed;
+                break;
+            case DOWN:
+                y +=speed;
+                break;
+            default:
+                break;
+        }
+
+        if (this.group == Group.BAD){
+            if (random.nextInt(100) >95)fire();
+            if (random.nextInt(100) >90)randomDir();
+        }
+
         /**边界返回*/
         boundsCheck();
 
         this.rectangle.x = this.x;
         this.rectangle.y = this.y;
-
-        if (this.group == Group.BAD){
-            if (random.nextInt(10) >8){
-
-                fire();
-            }
-            if (random.nextInt(10) >8)randomDir();
-        }
-
     }
 
     private void boundsCheck() {
-        if (x < 0) x = 2;
+        if (x < 0) x = 20;
         if (y < 28) y = 28;
-        if (x > TankFrame.GAME_WIDRTH -2)x = TankFrame.GAME_WIDRTH - Tank.tankWidth-2;
-        if (y > TankFrame.GAME_HEGITH -2)y = TankFrame.GAME_HEGITH - Tank.tankHight-2;
+        if (x > TankFrame.GAME_WIDRTH -20)x = TankFrame.GAME_WIDRTH - Tank.tankWidth-20;
+        if (y > TankFrame.GAME_HEGITH -28)y = TankFrame.GAME_HEGITH - Tank.tankHight-28;
     }
 
     private void randomDir() {
@@ -137,11 +150,18 @@ public class Tank extends BaseTank {
     public void fire() {
         int bx = this.x + this.tankWidth/2 - Build.width/2;
         int by = this.y + this.tankHight/2 - Build.hight/2;
-        tf.builds.add(new Build(bx,by,this.dir,this.tf,this.group));
+//        GameModel.getInstance().builds.add(new Build(bx,by,this.dir,this.group));
+        GameModel.getInstance().add(new Build(bx,by,this.dir,this.group));
         fireFactory.fire(this);
     }
 
     public void die() {
         this.living = false;
     }
+
+    public void goBack(){
+        x=oldx;
+        y=oldy;
+    }
+
 }
