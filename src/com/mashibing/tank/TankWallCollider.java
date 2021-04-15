@@ -20,7 +20,8 @@ public class TankWallCollider implements Collider {
             Tank t = (Tank)go1;
             Wall w = (Wall)go2;
             if (t.rectangle.intersects(w.rectangle)) {
-                t.goBack();
+//                t.goBack();
+
             }
             return true;
         }else if (go1 instanceof Wall && go2 instanceof Tank){

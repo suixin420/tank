@@ -9,8 +9,8 @@ public class TankTankCollider implements Collider {
             Tank t1 = (Tank)go1;
             Tank t2 = (Tank)go2;
             if (t1.rectangle.intersects(t2.rectangle)) {
-                t1.goBack();
-                t2.goBack();
+//                t1.goBack();
+//                t2.goBack();
             }
             return true;
         }else {

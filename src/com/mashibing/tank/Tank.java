@@ -21,7 +21,7 @@ public class Tank extends GameObject {
     Rectangle rectangle = new Rectangle();
     FireFactory fireFactory;
 
-    private Integer oldx,oldy;
+    public Integer oldx,oldy;
 
     public Rectangle getRectangle() {
         return rectangle;
@@ -37,8 +37,8 @@ public class Tank extends GameObject {
         this.dir = dir;
         this.group = group;
 
-        this.oldx=x;
-        this.oldy=y;
+        this.oldx=this.x;
+        this.oldy=this.y;
 
         this.rectangle.x = this.x;
         this.rectangle.y = this.y;
@@ -77,53 +77,61 @@ public class Tank extends GameObject {
     public void paint(Graphics g) {
         if (!living){
             GameModel.getInstance().remove(this);
-//            GameModel.getInstance().explodes.add(new Explode(this.x,this.y));
-            GameModel.getInstance().add(new Explode(this.x,this.y));
             return;
         }
-        g.drawImage(image,x, y,null);
+
+        switch (dir){
+            case LEFT:
+                g.drawImage(this.group == Group.GOOD?ResourceMgr.goodTankL:ResourceMgr.badTankL,x, y,null);
+                break;
+            case RIGHT:
+                g.drawImage(this.group == Group.GOOD?ResourceMgr.goodTankR:ResourceMgr.badTankR,x, y,null);
+                break;
+            case UP:
+                g.drawImage(this.group == Group.GOOD?ResourceMgr.goodTankU:ResourceMgr.badTankU,x, y,null);
+                break;
+            case DOWN:
+                g.drawImage(this.group == Group.GOOD?ResourceMgr.goodTankD:ResourceMgr.badTankD,x, y,null);
+                break;
+            default:
+                break;
+        }
         move();
 
     }
 
     private void move() {
-        oldx=x;
-        oldy=y;
+        this.oldx=x;
+        this.oldy=y;
         if (!moving) return;
 
         switch (dir){
             case LEFT:
                 x -=speed;
-                image = this.group == Group.GOOD?ResourceMgr.goodTankL:ResourceMgr.badTankL;
                 break;
             case RIGHT:
                 x +=speed;
-                image = this.group == Group.GOOD?ResourceMgr.goodTankR:ResourceMgr.badTankR;
                 break;
             case UP:
                 y -=speed;
-                image = this.group == Group.GOOD?ResourceMgr.goodTankU:ResourceMgr.badTankU;
                 break;
             case DOWN:
                 y +=speed;
-                image = this.group == Group.GOOD?ResourceMgr.goodTankD:ResourceMgr.badTankD;
                 break;
             default:
                 break;
         }
+
+        if (this.group == Group.BAD){
+            if (random.nextInt(100) >95)fire();
+            if (random.nextInt(100) >90)randomDir();
+        }
+
         /**边界返回*/
         boundsCheck();
 
         this.rectangle.x = this.x;
         this.rectangle.y = this.y;
-
-        if (this.group == Group.BAD){
-            if (random.nextInt(100) >90){
-                fire();
-            }
-            if (random.nextInt(100) >98)randomDir();
-        }
-
     }
 
     private void boundsCheck() {
@@ -154,7 +162,6 @@ public class Tank extends GameObject {
     public void goBack(){
         x=oldx;
         y=oldy;
-        move();
     }
 
 }

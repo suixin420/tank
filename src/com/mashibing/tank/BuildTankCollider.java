@@ -1,6 +1,5 @@
 package com.mashibing.tank;
 
-import java.awt.*;
 
 public class BuildTankCollider implements Collider {
 
@@ -15,6 +14,7 @@ public class BuildTankCollider implements Collider {
             if (b.rectangle.intersects(t.rectangle)) {
                 t.die();
                 b.die();
+                GameModel.getInstance().add(new Explode(t.x,t.y));
                 return false;
             }else {
                 return true;

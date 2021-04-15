@@ -45,27 +45,36 @@ public class Build extends GameObject{
             GameModel.getInstance().remove(this);
         }
 
+        switch(dir) {
+            case LEFT:
+                g.drawImage(ResourceMgr.buildL, x, y, null);
+                break;
+            case UP:
+                g.drawImage(ResourceMgr.buildU, x, y, null);
+                break;
+            case RIGHT:
+                g.drawImage(ResourceMgr.buildR, x, y, null);
+                break;
+            case DOWN:
+                g.drawImage(ResourceMgr.buildD, x, y, null);
+                break;
+        }
         move();
-        g.drawImage(image,x, y,null);
     }
 
     private void move() {
         switch (dir){
             case LEFT:
                 x -= speed;
-                image = ResourceMgr.buildL;
                 break;
             case RIGHT:
                 x += speed;
-                image = ResourceMgr.buildR;
                 break;
             case UP:
                 y -= speed;
-                image = ResourceMgr.buildU;
                 break;
             case DOWN:
                 y += speed;
-                image = ResourceMgr.buildD;
                 break;
             default:
                 break;
@@ -77,32 +86,6 @@ public class Build extends GameObject{
     }
 
 
-    /**
-     * 碰撞检测
-     * @return  true 没有碰撞 false碰撞发生
-     */
-    public boolean collideWith(Tank tank) {
-        if (this.group == tank.group) return true;
-        if (this.rectangle.intersects(tank.rectangle)) {
-            if (this.group == tank.group){
-                return true;
-            }
-//            Rectangle rect1 = new Rectangle(this.x, this.y, width, hight);
-//            Rectangle rect2 = new Rectangle(tank.x, tank.y, tank.tankWidth, tank.tankHight);
-
-            Rectangle rect1 = this.rectangle;
-            Rectangle rect2 = tank.rectangle;
-            if (rect1.intersects(rect2)) {
-                tank.die();
-                this.die();
-                return false;
-            }else {
-                return true;
-            }
-        }
-
-        return true;
-    }
 
     public void die() {
         this.living=false;
