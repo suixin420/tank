@@ -51,13 +51,7 @@ public class GameModel {
         for (int i=0;i<gameObjects.size();i++ ){
             gameObjects.get(i).paint(g);
         }
-//        myTank.paint(g);
-//        for (int i=0;i<builds.size();i++){
-//            builds.get(i).paint(g);
-//        }
-//        for (int i=0;i<tanks.size();i++){
-//            tanks.get(i).paint(g);
-//        }
+
         for (int i=0; i<gameObjects.size();i++){
             for (int j=1; j<gameObjects.size();j++){
                 GameObject go1 = gameObjects.get(i);
@@ -66,9 +60,7 @@ public class GameModel {
 
             }
         }
-//        for (int i=0;i<explodes.size();i++){
-//            explodes.get(i).paint(g);
-//        }
+
 
     }
 

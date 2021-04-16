@@ -30,7 +30,9 @@ public class ColliderChain {
 
     public void collide(GameObject go1,GameObject go2){
         for (int i =0; i<colliders.size();i++){
-             colliders.get(i).collideWith(go1,go2);
+            if (!colliders.get(i).collideWith(go1,go2)){
+                return;
+            }
 
         }
     }
