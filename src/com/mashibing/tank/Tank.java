@@ -160,8 +160,9 @@ public class Tank extends GameObject {
     }
 
     public void goBack(){
-        x=oldx;
-        y=oldy;
+        this.x=oldx;
+        this.y=oldy;
+        move();
     }
 
 }
