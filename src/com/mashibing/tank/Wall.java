@@ -3,8 +3,8 @@ package com.mashibing.tank;
 import java.awt.*;
 
 public class Wall extends GameObject {
-    int w,h;
-    Rectangle rectangle = new Rectangle();
+    public int w,h;
+    public Rectangle rectangle = new Rectangle();
 
     public Wall(Integer x, Integer y,Integer w, Integer h){
         this.x=x;

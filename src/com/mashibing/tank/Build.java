@@ -15,7 +15,7 @@ public class Build extends GameObject{
 
     private boolean living = true;
     public Group group = Group.BAD;
-    Rectangle rectangle = new Rectangle();
+    public Rectangle rectangle = new Rectangle();
 
 
     public Build(Integer x, Integer y, Dir dir,Group group) {

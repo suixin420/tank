@@ -1,5 +1,7 @@
 package com.mashibing.tank;
 
+import com.mashibing.collider.ColliderChain;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;

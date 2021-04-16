@@ -4,7 +4,7 @@ import java.awt.*;
 
 public abstract class GameObject {
 
-    Integer x=20,y=20;
+    public Integer x=20,y=20;
 
     public abstract void paint(Graphics g);
 
