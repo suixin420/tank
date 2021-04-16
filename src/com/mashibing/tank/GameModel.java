@@ -1,6 +1,9 @@
 package com.mashibing.tank;
 
 import com.mashibing.collider.ColliderChain;
+import com.mashibing.util.Dir;
+import com.mashibing.util.Group;
+import com.mashibing.util.PorioertiesMgr;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -16,7 +19,7 @@ public class GameModel {
 
     ColliderChain colliderChain = new ColliderChain();
 
-    Tank myTank = new Tank(100,200,Dir.DOWN,Group.GOOD);
+    Tank myTank = new Tank(100,200, Dir.DOWN, Group.GOOD);
 //    public List<Build> builds = new ArrayList<Build>();
 
 //    List<Tank> tanks = new ArrayList<Tank>();

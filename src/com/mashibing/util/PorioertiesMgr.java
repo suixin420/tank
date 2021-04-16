@@ -1,7 +1,6 @@
-package com.mashibing.tank;
+package com.mashibing.util;
 
 import java.io.IOException;
-import java.io.Reader;
 import java.util.Properties;
 
 public class PorioertiesMgr {

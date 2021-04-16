@@ -1,15 +1,19 @@
 package com.mashibing.tank;
 
 
+import com.mashibing.util.Dir;
+import com.mashibing.util.Group;
+import com.mashibing.util.PorioertiesMgr;
+import com.mashibing.util.ResourceMgr;
+
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Tank extends GameObject {
 
 //    public Integer x=20,y=20;
-    public static final Integer tankWidth=ResourceMgr.goodTankD.getWidth(), tankHight=ResourceMgr.goodTankD.getWidth();
+    public static final Integer tankWidth= ResourceMgr.goodTankD.getWidth(), tankHight=ResourceMgr.goodTankD.getWidth();
     public Dir dir;
     static final Integer speed=Integer.parseInt(PorioertiesMgr.get("tankSpeed").toString());
     private boolean moving = true;

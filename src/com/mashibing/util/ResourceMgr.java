@@ -1,4 +1,4 @@
-package com.mashibing.tank;
+package com.mashibing.util;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

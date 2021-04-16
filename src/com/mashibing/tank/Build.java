@@ -1,14 +1,18 @@
 package com.mashibing.tank;
 
 
+import com.mashibing.util.Dir;
+import com.mashibing.util.Group;
+import com.mashibing.util.PorioertiesMgr;
+import com.mashibing.util.ResourceMgr;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 public class Build extends GameObject{
 
     private static final Integer speed=Integer.parseInt(PorioertiesMgr.get("bulletSpeed").toString());
-    public static final Integer width=ResourceMgr.buildD.getWidth(), hight=ResourceMgr.buildD.getHeight();
+    public static final Integer width= ResourceMgr.buildD.getWidth(), hight=ResourceMgr.buildD.getHeight();
     private BufferedImage image = ResourceMgr.buildD;
 //    private Integer x=10,y=10;
     private Dir dir;

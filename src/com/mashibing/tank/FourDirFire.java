@@ -1,5 +1,7 @@
 package com.mashibing.tank;
 
+import com.mashibing.util.Dir;
+
 public class FourDirFire implements FireFactory {
     @Override
     public void fire(Tank t) {

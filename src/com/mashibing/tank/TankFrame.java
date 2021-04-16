@@ -1,6 +1,9 @@
 package com.mashibing.tank;
 
 
+import com.mashibing.util.Dir;
+import com.mashibing.util.PorioertiesMgr;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

@@ -1,8 +1,7 @@
 package com.mashibing.collider;
 
-import com.mashibing.collider.Collider;
 import com.mashibing.tank.GameObject;
-import com.mashibing.tank.PorioertiesMgr;
+import com.mashibing.util.PorioertiesMgr;
 
 import java.util.LinkedList;
 import java.util.List;
